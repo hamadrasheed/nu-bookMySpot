@@ -1,0 +1,52 @@
+/* Logo Styling */
+.logo-text {
+    color: green;
+    font-weight: bold;
+    font-size: 3rem; /* Equivalent to fs-3 */
+    letter-spacing: 0.5px;
+  }
+  
+  /* Navigation Links Styling */
+  .nav-text {
+    color: #6c757d; /* Bootstrap secondary color */
+    font-size: 1.5rem; /* Equivalent to fs-6 */
+    text-decoration: none;
+  }
+  
+  .nav-text:hover {
+    color: green; /* Hover effect for navigation links */
+  }
+  
+  /* Login Button Styling */
+  .login-button {
+    font-size: 14px;
+    font-weight: 500;
+    border: 2px solid green;
+    border-radius: 20px;
+    padding: 5px 20px;
+    color: green;
+    background-color: transparent;
+  }
+  
+  .login-button:hover {
+    background-color: green;
+    color: white;
+  }
+  
+  /* Signup Button Styling */
+  .signup-button {
+    font-size: 14px;
+    font-weight: 500;
+    border: 2px solid green;
+    border-radius: 20px;
+    padding: 5px 20px;
+    color: white;
+    background-color: green;
+  }
+  
+  .signup-button:hover {
+    color: white !important; /* Keeps text white on hover */
+    background-color: darkgreen; /* Darker green for hover */
+    border-color: darkgreen;
+  }
+  

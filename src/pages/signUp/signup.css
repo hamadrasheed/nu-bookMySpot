@@ -1,0 +1,58 @@
+/* Main container */
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa; /* Matches Bootstrap's bg-light */
+    overflow: hidden;
+  }
+  
+  /* Card */
+  .signup-card {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+    padding: 1rem; /* Matches Bootstrap's p-4 */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Matches Bootstrap shadow */
+  }
+  
+  /* Heading */
+  .signup-heading {
+    font-size: 2.4rem; /* Matches Login page heading */
+    text-align: center;
+    margin-bottom: 1rem; /* Matches Bootstrap's mb-4 */
+  }
+  
+  /* Labels */
+  .signup-label {
+    font-size: 1.5rem; /* Matches Login page labels */
+  }
+  
+  /* Input fields */
+  .signup-input {
+    font-size: 1.5rem; /* Matches Login page input font size */
+  }
+  
+  /* Small Text */
+  .signup-small {
+    font-size: 1rem;
+    color: #6c757d; /* Matches Bootstrap's text-muted */
+  }
+  
+  /* Buttons */
+  .signup-button {
+    font-size: 1.5rem;
+    margin-left: 18px; /* Matches Login page button font size */
+  }
+  
+  .signup-link {
+    font-size: 1rem; /* Smaller text for links */
+    text-decoration: none;
+    color: #28a745; /* Matches Bootstrap's text-success */
+  }
+  
+  .signup-link:hover {
+    text-decoration: underline;
+  }
+  
