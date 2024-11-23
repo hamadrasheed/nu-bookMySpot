@@ -1,0 +1,31 @@
+.home-container {
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Hero Section */
+  .hero {
+    background-image: url('https://via.placeholder.com/1920x500'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 80px 20px;
+  }
+  
+  /* Features Section */
+  .features i {
+    color: #f8c146; /* Icon color */
+  }
+  
+  .features h5 {
+    font-weight: bold;
+  }
+  
+  /* Call-to-Action Section */
+  .cta {
+    background-color: #007bff;
+  }
+  
+  .cta h2 {
+    font-size: 2.5rem;
+  }
+  

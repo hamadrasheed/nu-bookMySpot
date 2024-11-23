@@ -1,0 +1,40 @@
+.image-banner {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 60vh; /* Increased height by 200% (from 60vh to 120vh) */
+    color: white;
+  }
+  
+  .image-banner .overlay {
+    position: relative;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .banner-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+  
+  .banner-subtitle {
+    font-size: 1.69rem;
+    margin-bottom: 20px;
+  }
+  
+  
+  .banner-button {
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 2px solid green;
+    border-radius: 20px;
+    padding: 5px 20px;
+    color: white;
+    background-color: green;
+  }

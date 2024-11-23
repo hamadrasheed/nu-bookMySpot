@@ -1,0 +1,45 @@
+.banner-container {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 70vh; /* Adjust the height as needed */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  .banner-overlay {
+    background: rgba(255, 255, 255, 0.6); /* Semi-transparent white overlay */
+    height: 100%;
+    width: 50%; /* Adjust overlay width as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .banner-content {
+    text-align: left;
+    padding: 20px;
+  }
+  
+  .banner-title {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #28a745; /* Green color for the title */
+    margin-bottom: 20px;
+  }
+  
+  .banner-description {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .banner-button {
+    padding: 10px 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  

@@ -4,10 +4,9 @@ import { ToastContainer } from "react-toastify";
 
 import Login from "./pages/login/login"
 import SignUp from "./pages/signUp/signup"
+import Home from "./pages/home/home"
 import Navbar from "./components/navbar/navbar"
-
-import PrivateLayout from "./components/layout/PrivateLayout";
-import PublicLayout from "./components/layout/PublicLayout";
+import Footer from "./components/footer/footer"
 
 
 function App() {
@@ -16,24 +15,20 @@ function App() {
     <>
       <Navbar />
       <Routes> 
-        {/* <Route element={<PrivateLayout />}> */}
-          {/* <Route path="/" element={<Home />} /> */}
-        {/* </Route> */}
 
-        {/* <Route element={<PublicLayout />}> */}
+          <Route path="/" element={<Home />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="login" element={<Login />} />
-        {/* </Route> */}
+
+          {/* Catch-all route for undefined URLs */}
+          <Route path="*" element={<Home />} />
+
       </Routes>
+      < Footer />
       <ToastContainer />
     </>
   );
-  // return (
-  //   <div>
-  //     <Navbar />
-  //     <SignUp />
-  //   </div>
-  // )
 }
 
 export default App
+

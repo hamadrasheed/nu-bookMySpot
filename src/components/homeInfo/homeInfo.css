@@ -1,0 +1,37 @@
+.info-section {
+    background-color: #f9f9f9; /* Light background for the section */
+    padding: 40px 0;
+    width: 100vw; /* Ensures it spans the entire window width */
+  }
+  
+  .info-card {
+    width: 100%; /* Ensures the card takes the column's width */
+    max-width: 350px; /* Optional: Limits the maximum width of the card */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    text-align: center;
+  }
+  
+  .info-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .info-icon {
+    font-size: 8rem; /* Size for the icons */
+    color: #28a745; /* Green color */
+  }
+  
+  .info-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #28a745;
+  }
+  
+  .info-description {
+    font-size: 1rem;
+    color: #555;
+  }
+  

@@ -1,0 +1,39 @@
+.trustpilot-section {
+    background-color: #f8f9fa; /* Light background for contrast */
+    padding: 40px 0; /* Top and bottom padding */
+  }
+  
+  .trustpilot-logo img {
+    max-width: 120px;
+  }
+  
+  .stars {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
+  
+  .stars .bi-star-fill {
+    font-size: 1.5rem;
+  }
+  
+  .review-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .review-text {
+    font-size: 1.1rem;
+    color: #555;
+  }
+  
+  .review-card h6 {
+    font-size: 1.5rem;
+  }
+  
+  .review-card p {
+    margin: 0;
+  }
+  
