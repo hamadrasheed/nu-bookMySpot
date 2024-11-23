@@ -1,3 +1,4 @@
+import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
@@ -24,7 +25,7 @@ function App() {
           <Route path="login" element={<Login />} />
         {/* </Route> */}
       </Routes>
-      {/* <ToastContainer /> */}
+      <ToastContainer />
     </>
   );
   // return (

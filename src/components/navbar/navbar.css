@@ -1,9 +1,13 @@
 /* Logo Styling */
-.logo-text {
+  .logo-text {
     color: green;
     font-weight: bold;
     font-size: 3rem; /* Equivalent to fs-3 */
     letter-spacing: 0.5px;
+  }
+
+  .logo-text:hover {
+    color: darkgreen !important; 
   }
   
   /* Navigation Links Styling */
@@ -35,6 +39,7 @@
   
   /* Signup Button Styling */
   .signup-button {
+    margin-left: 10px;
     font-size: 14px;
     font-weight: 500;
     border: 2px solid green;
@@ -48,5 +53,15 @@
     color: white !important; /* Keeps text white on hover */
     background-color: darkgreen; /* Darker green for hover */
     border-color: darkgreen;
+  }
+
+  .logout-button {
+    font-size: 14px;
+    font-weight: 500;
+    border: 2px solid red;
+    border-radius: 20px;
+    padding: 5px 20px;
+    color: red;
+    background-color: transparent;
   }
   

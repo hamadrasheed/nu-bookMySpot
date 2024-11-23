@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
+///
+
+import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './signup.css'; // Import the CSS file
+import { toast } from "react-toastify";
+import apiService from '../../shared/http';
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
     firstName: '',
-    surname: '',
+    lastName: '',
     email: '',
     password: '',
+    roleSlug: '', // Added to store the selected role
     optOut: false,
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -19,10 +27,45 @@ const Signup = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const onCancelClick = () => {
+    navigate("/");
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form Submitted:', formData);
-    // Add API call logic here
+
+    if (!formData.roleSlug) {
+      toast.error("Please select a role!", {
+        position: 'top-center',
+        autoClose: true,
+      });
+      return;
+    }
+
+    try {
+      const requestBody = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        password: formData.password,
+        roleSlug: formData.roleSlug, // Dynamically include the selected role
+      };
+
+      const response = await apiService.post('/user/register', requestBody);
+
+      toast.success(response.message, {
+        position: 'top-center',
+        autoClose: true,
+      });
+
+      navigate("/login");
+    } catch (error) {
+      const data = error?.response?.data;
+      toast.error(data.message, {
+        position: 'top-center',
+        autoClose: true,
+      });
+    }
   };
 
   return (
@@ -49,16 +92,16 @@ const Signup = () => {
 
           {/* Surname */}
           <div className="mb-3">
-            <label htmlFor="surname" className="form-label signup-label">
-              Surname
+            <label htmlFor="lastName" className="form-label signup-label">
+              Last Name
             </label>
             <input
               type="text"
               className="form-control signup-input"
-              id="surname"
-              name="surname"
-              placeholder="Surname"
-              value={formData.surname}
+              id="lastName"
+              name="lastName"
+              placeholder="Last name"
+              value={formData.lastName}
               onChange={handleChange}
               required
             />
@@ -101,14 +144,48 @@ const Signup = () => {
             </small>
           </div>
 
-          {/* Action Buttons */}
+          {/* Role Selection */}
+          <div className="mb-3">
+            <label className="form-label signup-label">I am:</label>
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="radio"
+                name="roleSlug"
+                id="rentSpot"
+                value="owner"
+                onChange={handleChange}
+              />
+              <label className="form-check-label signup-label" htmlFor="rentSpot">
+                owner of spot, want to rent it.
+              </label>
+            </div>
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="radio"
+                name="roleSlug"
+                id="findSpot"
+                value="driver"
+                onChange={handleChange}
+              />
+              <label className="form-check-label signup-label" htmlFor="findSpot">
+                driver, finding a spot to park my car.
+              </label>
+            </div>
+          </div>
+
           <div className="d-flex justify-content-between mb-3">
-            <button type="submit" className="btn btn-success signup-button">
-            Cancel
-            </button>
             <button
               type="button"
-              className="btn btn-outline-secondary signup-button"
+              className="btn btn-outline-secondary signup-button rounded-pill w-50 me-2"
+              onClick={onCancelClick}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="btn btn-outline-secondary signup-button rounded-pill w-50"
             >
               Create account
             </button>

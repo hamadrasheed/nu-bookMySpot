@@ -1,16 +1,45 @@
-//
-import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './login.css';
+import { useState, useContext } from 'react';
+import { toast } from "react-toastify";
+import apiService from '../../shared/http';
+import { AuthContext } from '../../context/context';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Login Submitted:', { email, password });
-    // Add API call logic here
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    try {
+
+      e.preventDefault();
+  
+      const requestBody = {
+        email: email,
+        password: password,
+      };
+  
+      const response = await apiService.post('/user/login', requestBody);
+
+      login(response.data.token);
+
+      toast.success(response.message, {
+        position: 'top-center', 
+        autoClose: true,
+      });
+      navigate('/dashboard');
+      
+    } catch (error) {
+      const data = error?.response?.data; 
+      toast.error(data.message, {
+        position: 'top-center',
+        autoClose: true,
+      });
+    }
+
   };
 
   return (

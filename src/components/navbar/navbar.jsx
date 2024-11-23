@@ -1,12 +1,23 @@
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './navbar.css'; 
+import './navbar.css';
+import { AuthContext } from '../../context/context'; // Adjust the path if necessary
 
 const Navbar = () => {
+  const { isAuthenticated, logout } = useContext(AuthContext); // Use context for auth state
+  const navigate = useNavigate();
+
+  // Handle Logout
+  const handleLogout = () => {
+    logout(); // Call logout from AuthContext to clear token
+    navigate('/'); // Redirect to the homepage
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
       <div className="container">
-        {/* Logo on the Left */}
+        {/* Logo */}
         <Link className="navbar-brand logo-text" to="/">
           BookMySpot
         </Link>
@@ -24,7 +35,7 @@ const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* Links and Buttons on the Right */}
+        {/* Links and Buttons */}
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item">
@@ -66,13 +77,24 @@ const Navbar = () => {
 
           {/* Authentication Buttons */}
           <div className="d-flex">
-            <Link to="/login">
-                <button className="btn login-button">Login</button>
-            </Link>
-            <Link to="/signup">
-                <button className="btn signup-button">Sign Up</button>
-            </Link>
-            </div>
+            {!isAuthenticated ? (
+              <>
+                <Link to="/login">
+                  <button className="btn login-button">Login</button>
+                </Link>
+                <Link to="/signup">
+                  <button className="btn signup-button">Sign Up</button>
+                </Link>
+              </>
+            ) : (
+              <button
+                className="btn btn-danger logout-button"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </nav>
