@@ -40,17 +40,25 @@ const apiService = {
             throw error;
         }
     },
-    post: async (url, data) => {
+    post: async (url, data, isFormData = false) => {
         try {
-            const response = await api.post(url, data);
+            const headers = isFormData
+                ? { 'Content-Type': 'multipart/form-data' }
+                : { 'Content-Type': 'application/json' };
+
+            const response = await api.post(url, data, { headers });
             return response.data;
         } catch (error) {
             throw error;
         }
     },
-    put: async (url, data) => {
+    put: async (url, data, isFormData = false) => {
         try {
-            const response = await api.put(url, data);
+            const headers = isFormData
+                ? { 'Content-Type': 'multipart/form-data' }
+                : { 'Content-Type': 'application/json' };
+
+            const response = await api.put(url, data, { headers });
             return response.data;
         } catch (error) {
             throw error;

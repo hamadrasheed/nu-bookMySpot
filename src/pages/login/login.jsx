@@ -23,8 +23,7 @@ const Login = () => {
       };
   
       const response = await apiService.post('/user/login', requestBody);
-
-      login(response.data.token);
+      login(response.data);
 
       toast.success(response.message, {
         position: 'top-center', 
@@ -34,6 +33,7 @@ const Login = () => {
       
     } catch (error) {
       const data = error?.response?.data; 
+      console.log('data',data);
       toast.error(data.message, {
         position: 'top-center',
         autoClose: true,

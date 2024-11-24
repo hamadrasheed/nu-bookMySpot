@@ -1,0 +1,24 @@
+.about-section {
+    background-color: #eaf8f0; /* Light green background */
+    border-radius: 10px; /* Smooth corners */
+    padding: 40px; /* Padding inside the section */
+  }
+  
+  .about-image {
+    width: 100%; /* Ensures image is responsive */
+    max-width: 250px; /* Limits maximum width of the image */
+    border-radius: 10px; /* Matches the section's rounded corners */
+  }
+  
+  .about-title {
+    font-size: 2rem; /* Larger font size for the title */
+    font-weight: bold;
+    color: #000; /* Black color for the title */
+  }
+  
+  .about-text {
+    font-size: 1.5rem; /* Standard text size */
+    line-height: 1.6; /* Improves readability */
+    color: #333; /* Dark grey for text */
+  }
+  

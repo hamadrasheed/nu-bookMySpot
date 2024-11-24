@@ -1,18 +1,26 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './navbar.css';
 import { AuthContext } from '../../context/context'; // Adjust the path if necessary
 
 const Navbar = () => {
-  const { isAuthenticated, logout } = useContext(AuthContext); // Use context for auth state
+  const { isAuthenticated, logout, loggedInUserRole: userRole, loggedInUserInfo } = useContext(AuthContext); // Use context for auth state
+  const [userRoleCurrent, setUserRoleCurrent] = useState(userRole);
+
   const navigate = useNavigate();
 
   // Handle Logout
   const handleLogout = () => {
-    logout(); // Call logout from AuthContext to clear token
+    logout(); 
     navigate('/'); // Redirect to the homepage
   };
+
+  useEffect(() => {
+    setUserRoleCurrent(localStorage.getItem('role'));
+  }, [userRoleCurrent])
+
+  console.log('userRoleCurrent',userRoleCurrent);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
@@ -43,26 +51,46 @@ const Navbar = () => {
                 Find parking
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link nav-text" to="/how-it-works">
-                How it works
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link nav-text" to="/rent-space">
-                Rent out your space
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link nav-text" to="/business">
-                Business
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link nav-text" to="/ev">
-                EV
-              </Link>
-            </li>
+
+            {
+              userRoleCurrent === 'owner' ? (
+                // If the user is an owner
+                <li className="nav-item">
+                  <Link className="nav-link nav-text" to="/owner-listing">
+                    Your Parking spots
+                  </Link>
+                </li>
+              ) : null
+            }
+
+            {userRoleCurrent ? (
+              userRoleCurrent === 'owner' ? (
+                // If the user is an owner
+                <li className="nav-item">
+                  <Link className="nav-link nav-text" to="/rent-space">
+                    Rent out your space
+                  </Link>
+                </li>
+              ) : userRoleCurrent === 'admin' ? (
+                // If the user is an admin (example additional role)
+                <li className="nav-item">
+                  <Link className="nav-link nav-text" to="/admin-dashboard">
+                    Admin Dashboard
+                  </Link>
+                </li>
+              ) : (
+               null
+              )
+            ) : (
+
+              <li className="nav-item">
+                  <Link className="nav-link nav-text" to="/rent-space">
+                    Rent out your space
+                  </Link>
+                </li>
+              // If the user is not logged in or has no role
+            )}
+
             <li className="nav-item">
               <Link className="nav-link nav-text" to="/company">
                 Company

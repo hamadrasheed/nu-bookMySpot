@@ -1,0 +1,41 @@
+.contact-form-container {
+    background-color: #f9f9f9; /* Light background */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contact-form-container h2 {
+    font-size: 4.5 rem;
+    font-weight: bold;
+    color: #28a745;
+  }
+  
+  .contact-form-container p {
+    color: #555;
+    font-size: 3rem;
+  }
+  
+  .form-control {
+    border-radius: 5px;
+    font-size: 2rem;
+  }
+  
+  .btn-success {
+    font-size: 2.1rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  
+  .alert-success {
+    font-size: 1.2rem;
+  }
+  
+  .font-increase {
+    font-size: 2.1rem;
+  }
+
+  .heading-font-increase {
+    font-size: 4.1rem;
+  }
