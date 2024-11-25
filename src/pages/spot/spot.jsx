@@ -1,41 +1,72 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './spot.css'; // Optional CSS for custom styling
-import apiService from '../../shared/http'; // Your API service file
+import './spot.css';
+import apiService from '../../shared/http';
 
-
-const ParkingSpotList = ({ ownerOnly = false }) => {
-
+const ParkingSpotList = ({ role, type }) => {
   const [parkingSpots, setParkingSpots] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [hasFetched, setHasFetched] = useState(false);
+  const [filters, setFilters] = useState({
+    maxPrice: '',
+    weekday: new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(new Date()), // Today's day
+    startDate: new Date().toISOString().split('T')[0],
+    endDate: new Date().toISOString().split('T')[0],
+  });
 
+  const headingMapper = {
+    owner: 'Your Parking Spots',
+    listing: 'Find parking spots',
+    driver: 'Your Booked Parking Spots',
+    'admin-all-bookings': 'All Bookings',
+    'admin-all-parkings': 'All parking spots'
+  };
+
+  const dynamicHeading = headingMapper[`${role}`]
+
+  const actionButtonName = {
+    owner: 'Edit',
+    listing: 'Book Now',
+    driver: 'Cancel Booking',
+    'admin-all-bookings': 'Edit',
+    'admin-all-parkings': 'Edit'
+  };
+
+  const dynamicActionButton = actionButtonName[`${role}`]
+
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [name]: value,
+    }));
+  };
+  console.log('type', type, role);
   const fetchParkingSpots = async () => {
     try {
 
-      // required resopnse 
-      // {
-      //   "id": 1,
-      //   "title": "Test Parking Spot",
-      //   "address": "1275 York Ave",
-      //   "city": "Manhattan",
-      //   "postalCode": "E1 7ht",
-      //   "availability": "hourly",
-      //   "price": "20",
-      //   "description": "A convenient parking spot near downtown.",
-      //   "weekdays": "Thursday",
-      //   "picture": "/uploads/image-1732461967060-edi-123.png"
-      // },
+      const endPointMappter = {
+        owner: '/owner',
+        listing: '/',
+        driver: '/booked',
+        'admin-all-bookings': '/booked',
+        'admin-all-parkings': '/owner'
+      }
 
-      const dynamicEndPoint = ownerOnly ? '/parking-spot/owner' : '/parking-spot';
+      let adminFilter = {};
 
-      const response = await apiService.get(dynamicEndPoint, {
-        ownerOnly
-      }); 
+      if( ['admin-all-bookings', 'admin-all-parkings'].includes(`${role}`) ) {
+        adminFilter = {
+          isAdmin: true
+        }
+      }
 
-      setParkingSpots(response.data); 
+      const dynamicendPoint = endPointMappter[`${role}`]
+
+      const endpoint = `/parking-spot${dynamicendPoint}`;
+      const response = await apiService.get(endpoint, { ...filters, ...adminFilter });
+      setParkingSpots(response.data);
       setLoading(false);
-
     } catch (error) {
       console.error('Error fetching parking spots:', error);
       setLoading(false);
@@ -43,15 +74,8 @@ const ParkingSpotList = ({ ownerOnly = false }) => {
   };
 
   useEffect(() => {
-
-    // todo important, API being called multiple times
-
-    if (hasFetched) return; // Prevent multiple calls
-
-    setHasFetched(true);
     fetchParkingSpots();
-
-  }, []);
+  }, [filters, role]);
 
   if (loading) {
     return <div className="text-center py-5">Loading parking spots...</div>;
@@ -64,9 +88,75 @@ const ParkingSpotList = ({ ownerOnly = false }) => {
   return (
     <div className="container py-5">
       <h2 className="text-center mb-4">
-        {!ownerOnly ? 'Find Parking Spots' : 'Your Parking Spots'}
-        
-        </h2>
+        {dynamicHeading}
+      </h2>
+
+      {/* Filters */}
+      {role !== 'owner' && role !== 'driver' && (
+        <div className="row mb-4">
+          {/* Max Price Filter */}
+          <div className="col-md-2 mb-2">
+            <input
+              type="number"
+              name="maxPrice"
+              value={filters.maxPrice}
+              onChange={handleFilterChange}
+              className="form-control filter-input"
+              placeholder="Max Price"
+            />
+          </div>
+
+          {/* Weekday Filter */}
+          <div className="col-md-2 mb-2">
+            <select
+              name="weekday"
+              value={filters.weekday}
+              onChange={handleFilterChange}
+              className="form-control filter-input"
+            >
+              {['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((day) => (
+                <option key={day} value={day}>
+                  {day}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Start Date Filter */}
+          <div className="col-md-3 mb-2">
+            <input
+              type="date"
+              name="startDate"
+              value={filters.startDate}
+              onChange={handleFilterChange}
+              className="form-control filter-input"
+            />
+          </div>
+
+          {/* End Date Filter */}
+          <div className="col-md-3 mb-2">
+            <input
+              type="date"
+              name="endDate"
+              value={filters.endDate}
+              onChange={handleFilterChange}
+              className="form-control filter-input"
+            />
+          </div>
+
+          {/* Apply Filters Button */}
+          <div className="col-md-2 mb-2">
+            <button
+              className="btn btn-primary w-100 filter-button"
+              onClick={fetchParkingSpots}
+            >
+              Apply Filters
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Parking Spot List */}
       <div className="row g-4">
         {parkingSpots.map((spot) => (
           <div className="col-lg-4 col-md-6" key={spot.id}>
@@ -96,11 +186,18 @@ const ParkingSpotList = ({ ownerOnly = false }) => {
                 <p className="card-text">
                   <strong>Weekdays:</strong> {spot.weekdays || 'Not specified'}
                 </p>
+                {
+                  role == 'driver' ? 
+                  <p className="card-text">
+                  <strong>Booked for:</strong> {`${spot.startTime} - ${spot.dayName}` || 'Not specified'}
+                  </p>
+                  : null
+                }
               </div>
               <div className="card-footer text-center">
-                <button className="btn btn-success btn-sm">
-                  {ownerOnly ? 'Edit': 'Book'}
-                </button>
+
+                <button className="btn btn-success btn-sm">{dynamicActionButton}</button>
+
               </div>
             </div>
           </div>

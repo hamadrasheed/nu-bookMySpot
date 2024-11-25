@@ -8,6 +8,7 @@ import SignUp from "./pages/signUp/signup"
 import Home from "./pages/home/home"
 import CreateParkingSpot from "./pages/createSpot/createParkingSpot"
 import OwnerSpots from "./pages/spot/spot"
+import AdminUserList from "./pages/adminUserList/adminUserList"
 
 import Navbar from "./components/navbar/navbar"
 import Footer from "./components/footer/footer"
@@ -27,7 +28,9 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="company" element={<Company />} />
           <Route path="help" element={<ContactUs />} />
-          <Route path="find-parking" element={<OwnerSpots />} />
+          <Route path="find-parking" element={<OwnerSpots role="listing" />} />
+
+          {/* <Route path="users" element={<AdminUserList />} /> */}
 
           <Route
           path="/rent-space"
@@ -42,7 +45,46 @@ function App() {
           path="/owner-listing"
           element={
             <ProtectedRoute allowedRoles={['owner']}>
-              <OwnerSpots ownerOnly={true} />
+              <OwnerSpots ownerOnly={true} role="owner" />
+              
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/driver-listing"
+          element={
+            <ProtectedRoute allowedRoles={['driver']}>
+              <OwnerSpots ownerOnly={true} role="driver" />
+              
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/users"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <AdminUserList />    
+            </ProtectedRoute>
+          }
+        />
+
+
+        <Route
+          path="/all-bookings"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <OwnerSpots ownerOnly={true} role="admin-all-bookings" />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/all-parking-spots"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <OwnerSpots ownerOnly={true} role="admin-all-parkings" />
             </ProtectedRoute>
           }
         />

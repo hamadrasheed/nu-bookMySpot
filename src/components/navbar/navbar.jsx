@@ -46,11 +46,36 @@ const Navbar = () => {
         {/* Links and Buttons */}
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+
+            {
+              userRoleCurrent !== 'admin' ?
             <li className="nav-item">
               <Link className="nav-link nav-text" to="/find-parking">
                 Find parking
               </Link>
             </li>
+            : null
+
+            }
+
+            {
+              userRoleCurrent === 'admin' ?
+            (<li className="nav-item">
+              <Link className="nav-link nav-text" to="/users">
+                All Users
+              </Link>
+            </li>) : null
+            }
+
+{
+              userRoleCurrent === 'admin' ?
+            (<li className="nav-item">
+              <Link className="nav-link nav-text" to="/all-parking-spots">
+                All Parking spots
+              </Link>
+            </li>) : null
+            }
+
 
             {
               userRoleCurrent === 'owner' ? (
@@ -58,6 +83,17 @@ const Navbar = () => {
                 <li className="nav-item">
                   <Link className="nav-link nav-text" to="/owner-listing">
                     Your Parking spots
+                  </Link>
+                </li>
+              ) : null
+            }
+
+            {
+              userRoleCurrent === 'driver' ? (
+                // If the user is an owner
+                <li className="nav-item">
+                  <Link className="nav-link nav-text" to="/driver-listing">
+                    Your Booked spots
                   </Link>
                 </li>
               ) : null
@@ -74,8 +110,8 @@ const Navbar = () => {
               ) : userRoleCurrent === 'admin' ? (
                 // If the user is an admin (example additional role)
                 <li className="nav-item">
-                  <Link className="nav-link nav-text" to="/admin-dashboard">
-                    Admin Dashboard
+                  <Link className="nav-link nav-text" to="/all-bookings">
+                    All Bookings
                   </Link>
                 </li>
               ) : (

@@ -20,3 +20,16 @@
     width: 100%;
   }
   
+  .form-input {
+    height: 4rem;
+  }
+  
+  .filter-button {
+    font-size: 14px;
+    font-weight: 500;
+    border: 2px solid green;
+    border-radius: 20px;
+    padding: 5px 20px;
+    color: green;
+    background-color: transparent;
+  }
